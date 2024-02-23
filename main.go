@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"huma-test/service"
 	"net/http"
 
 	"github.com/danielgtaylor/huma/v2"
@@ -21,11 +20,11 @@ func main() {
 		// Create a new router & API
 		router := chi.NewMux()
 		api := humachi.New(router, huma.DefaultConfig("My API", "1.0.0"))
-		huma.AutoRegister(api, &service.Implementation{})
+		huma.AutoRegister(api, &Implementation{})
 		// Tell the CLI how to start your server.
 		hooks.OnStart(func() {
 			fmt.Printf("Starting server on port %d...\n", options.Port)
-			http.ListenAndServe(fmt.Sprintf(":%d", options.Port), router)
+			_ = http.ListenAndServe(fmt.Sprintf(":%d", options.Port), router)
 		})
 	})
 

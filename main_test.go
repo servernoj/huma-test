@@ -1,7 +1,6 @@
 package main
 
 import (
-	"huma-test/service"
 	"strings"
 	"testing"
 
@@ -12,7 +11,7 @@ import (
 func TestGetGreeting(t *testing.T) {
 	_, api := humatest.New(t)
 
-	huma.AutoRegister(api, &service.Implementation{})
+	huma.AutoRegister(api, &Implementation{})
 
 	resp := api.Get("/greeting/world")
 	if !strings.Contains(resp.Body.String(), "Hello, world!") {
@@ -23,7 +22,7 @@ func TestGetGreeting(t *testing.T) {
 func TestPutReview(t *testing.T) {
 	_, api := humatest.New(t)
 
-	huma.AutoRegister(api, &service.Implementation{})
+	huma.AutoRegister(api, &Implementation{})
 
 	resp := api.Post("/reviews", map[string]any{
 		"author": "daniel",
@@ -38,7 +37,7 @@ func TestPutReview(t *testing.T) {
 func TestPutReviewError(t *testing.T) {
 	_, api := humatest.New(t)
 
-	huma.AutoRegister(api, &service.Implementation{})
+	huma.AutoRegister(api, &Implementation{})
 
 	resp := api.Post("/reviews", map[string]any{
 		"rating": 10,
